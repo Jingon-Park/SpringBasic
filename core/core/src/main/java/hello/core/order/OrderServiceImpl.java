@@ -7,7 +7,7 @@ import hello.core.member.*;
 
 public class OrderServiceImpl implements OrderService {
 
-    private MemberRepository memberRepository = new MemoryMemberRepository();
+    //private MemberRepository memberRepository = new MemoryMemberRepository();
     //private DiscountPolicy discountPolicy = new FixDiscountPolicy();
 
 
@@ -21,8 +21,15 @@ public class OrderServiceImpl implements OrderService {
      * private DiscountPolicy discountPolicy; 로 수정하면 된다.
      * 하지만 이때는 구현체가 없기 때문에 NP가 발생한다.
      */
-    private DiscountPolicy discountPolicy = new RateDiscountPolicy();
+    //private DiscountPolicy discountPolicy = new RateDiscountPolicy();
 
+    private final DiscountPolicy discountPolicy;
+    private final MemberRepository memberRepository;
+
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.discountPolicy = discountPolicy;
+        this.memberRepository = memberRepository;
+    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {

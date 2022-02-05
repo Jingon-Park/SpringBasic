@@ -14,7 +14,9 @@ public class MemberApp {
      * 인터페이스도 의존하고 구현체도 의존하고 있으므로 DIP를 지키지 않고 있음.
      */
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
+        AppConfig appConfig = new AppConfig();
+        MemberServiceImpl memberService = appConfig.memberService();
+        //MemberService memberService = new MemberServiceImpl();
 
         Member member = new Member(1L, "memberA", Grade.VIP);
 
