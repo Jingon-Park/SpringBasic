@@ -19,7 +19,7 @@ public class OrderServiceImpl implements OrderService {
      *
      * 이를 해결하기 위해
      * private DiscountPolicy discountPolicy; 로 수정하면 된다.
-     * 하지만 이때는 구현체가 없기 때문에 NP가 발생한다.
+     * 하지만 이때는 구현체가 없기 때문에 NP 예외가 발생한다.
      */
     //private DiscountPolicy discountPolicy = new RateDiscountPolicy();
 
