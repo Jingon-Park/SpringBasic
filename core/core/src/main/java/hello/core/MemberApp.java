@@ -1,6 +1,8 @@
 package hello.core;
 
 import hello.core.member.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class MemberApp {
 
@@ -14,8 +16,11 @@ public class MemberApp {
      * 인터페이스도 의존하고 구현체도 의존하고 있으므로 DIP를 지키지 않고 있음.
      */
     public static void main(String[] args) {
-        AppConfig appConfig = new AppConfig();
-        MemberService memberService = appConfig.memberService();
+//        AppConfig appConfig = new AppConfig();
+//        MemberService memberService = appConfig.memberService();
+
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
         //MemberService memberService = new MemberServiceImpl();
 
         Member member = new Member(1L, "memberA", Grade.VIP);
