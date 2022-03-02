@@ -1,9 +1,14 @@
 package hello.core.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class MemberServiceImpl implements MemberService {
 
     //private static MemberRepository memberRepository = new MemoryMemberRepository();//인터페이스와 구현체를 모두 의존하므로 DIP를 위반
     private final MemberRepository memberRepository;
+    @Autowired
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
@@ -14,4 +19,8 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findById(memberId);
     }
 
+    //test
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
+    }
 }
