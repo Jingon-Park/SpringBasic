@@ -1,6 +1,7 @@
 package hello.core.autowired;
 
 import hello.core.AppConfig;
+import hello.core.AutoAppConfig;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Grade;
 import hello.core.member.Member;
@@ -20,7 +21,7 @@ public class AllBeanTest {
     @Test
     void finAllBean() {
 
-        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class, DiscountPolicyService.class);
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class, DiscountPolicyService.class);
 
         DiscountPolicyService discountPolicyService = ac.getBean(DiscountPolicyService.class);
 
@@ -28,7 +29,7 @@ public class AllBeanTest {
 
         Member member = new Member(1L, "UserA", Grade.VIP);
 
-        int discount = discountPolicyService.discount(member, 10000, "fixedDiscountPolicy");
+        int discount = discountPolicyService.discount(member, 10000, "fixDiscountPolicy");
 
         Assertions.assertThat(discount).isEqualTo(1000);
 
