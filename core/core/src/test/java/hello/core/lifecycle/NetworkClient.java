@@ -1,5 +1,8 @@
 package hello.core.lifecycle;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 public class NetworkClient {
 
     private String url;
@@ -12,8 +15,6 @@ public class NetworkClient {
          * !! 초기화 => 어떤 처음 제대로 동작(일)했을때를 말한다. -> 여기서는 connect()가 초기화임.
          * */
         System.out.println("생성자 호출, url = " + url);
-
-
     }
 
 
@@ -36,13 +37,14 @@ public class NetworkClient {
     }
 
 
+    @PostConstruct
     public void init() {
         System.out.println("NetworkClient.init");
         discount();
 
     }
 
-
+    @PreDestroy
     public void close() {
         System.out.println("NetworkClient.close");
         connect();
