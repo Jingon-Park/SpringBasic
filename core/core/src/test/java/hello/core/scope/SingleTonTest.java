@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Scope;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-public class singleTonTest {
+public class SingleTonTest {
 
     @Test
     void singletonBeanFind() {
