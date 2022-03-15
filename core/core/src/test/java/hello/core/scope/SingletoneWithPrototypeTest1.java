@@ -2,6 +2,7 @@ package hello.core.scope;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
@@ -9,6 +10,7 @@ import org.springframework.expression.spel.CodeFlow;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Provider;
 import java.lang.ref.Cleaner;
 
 public class SingletoneWithPrototypeTest1 {
@@ -43,22 +45,27 @@ public class SingletoneWithPrototypeTest1 {
 
         Assertions.assertThat(logic).isEqualTo(1);
 
-        Assertions.assertThat(logic2).isEqualTo(2);
+        Assertions.assertThat(logic2).isEqualTo(1);
         ac.close();
 
 
     }
 
     @Scope("singleton")
-    static class ClientBean{
-        private final PrototypeBean prototypeBean;
+    static class ClientBean {
+
+
+        //ObjectFactory를 사용하더라도 스프링에 의존적임.
+        //@Autowired
+        //private ObjectFactory<PrototypeBean> provider;
 
         @Autowired
-        public ClientBean(PrototypeBean prototypeBean) {
-            this.prototypeBean = prototypeBean;
-        }
+        private Provider<PrototypeBean> provider;
+
 
         public int logic() {
+            //PrototypeBean prototypeBean = provider.getObject();
+            PrototypeBean prototypeBean = provider.get();
             prototypeBean.addCount();
             int count = prototypeBean.getCount();
             return count;
